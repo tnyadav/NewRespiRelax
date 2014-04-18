@@ -5,12 +5,19 @@ import android.view.animation.TranslateAnimation;
 
 public class TranslateAnim extends TranslateAnimation{
 
-    public TranslateAnim(int fromXType, float fromXValue, int toXType, float toXValue, int fromYType, float fromYValue, int toYType, float toYValue) 
-    		{
-        super(fromXType, fromXValue, toXType, toXValue, fromYType, fromYValue, toYType, toYValue);
-        // TODO Auto-generated constructor stub
-    }
+	public TranslateAnim(int fromXType, float fromXValue, int toXType,
+			float toXValue, int fromYType, float fromYValue, int toYType,
+			float toYValue) {
+		super(fromXType, fromXValue, toXType, toXValue, fromYType, fromYValue,
+				toYType, toYValue);
+		// TODO Auto-generated constructor stub
+	}
 
+	public TranslateAnim(float fromXValue, float toXValue, float fromYValue,
+			float toYValue) {
+		super(fromXValue, toXValue, fromYValue, toYValue);
+		// TODO Auto-generated constructor stub
+	}
     private long mElapsedAtPause=0;
     private boolean mPaused=false;
 
