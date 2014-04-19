@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 			public void run() {
 				//int y=(int) layout.getTop();
 				int imHeight=im.getHeight();
-				int height=layout.getHeight()-imHeight;
+				int height=layout.getHeight()-50;
 			    
 				int position=height/2;
 				
