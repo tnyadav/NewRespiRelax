@@ -43,13 +43,6 @@ public class MainActivity extends Activity {
 		im=(ImageView)findViewById(R.id.im);
 		layout=(LinearLayout)findViewById(R.id.l1);
 		timer=new Timer();
-
-	}
-
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
 		counter=0;
 		new Handler().postDelayed(new Runnable() {
 			
@@ -130,11 +123,11 @@ public class MainActivity extends Activity {
 						if (text.equals("Start")) {
 							im.startAnimation(animationSet);
 							timer.schedule(new MyTimerTask(), 000,1000);
-							b1.setText("Pouse");
+							b1.setText("Pause");
 						}
 						
 						
-						if (text.equals("Pouse")) {
+						if (text.equals("Pause")) {
 							t1.pause();
 							t2.pause();
 							end=true;
@@ -146,7 +139,7 @@ public class MainActivity extends Activity {
 							t1.resume();
 							t2.resume();
 							end=false;
-							b1.setText("Pouse");
+							b1.setText("Pause");
 						}
 					    
 					
@@ -161,16 +154,24 @@ public class MainActivity extends Activity {
 			}
 		}, 1000);
 		
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
 
 	}
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		counter=0;
+		
+	/*	counter=0;
 		timer.cancel();
 		animationSet.cancel();
-		overridePendingTransition(0, 0);
+		overridePendingTransition(0, 0);*/
 		
 	}
 	class MyTimerTask extends TimerTask {
