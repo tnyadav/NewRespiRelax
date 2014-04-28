@@ -42,4 +42,12 @@
         android:layout_centerVertical="true"
         />
 
+    <Button
+        android:id="@+id/btnSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/l1"
+        android:layout_alignRight="@+id/b1"
+        android:text="Setting" />
+
 </RelativeLayout>

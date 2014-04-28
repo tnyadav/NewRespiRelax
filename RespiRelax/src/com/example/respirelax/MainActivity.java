@@ -3,15 +3,11 @@ package com.example.respirelax;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.w3c.dom.Text;
-
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.animation.AnimatorSet;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.view.Menu;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -23,13 +19,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+	
+	
+	private static final String START = "Start";
+	private static final String PAUSE = "Pause";
+	private static final String RESUME = "Resume";
+	private static final int SECOND = 60000;
+	private static final String TAG = "MainActivity";
+	
 	Button b1,b2;
 	ImageView im;
 	TextView tv;
 	LinearLayout layout;
     TranslateAnim t1,t2;
-	 AnimationSet animationSet;
-    int duration=5000;
+	AnimationSet animationSet;
+    int duration=SECOND*60*2;
+    int frequency=5;
     boolean end=false;
     int counter;
     Timer timer;
@@ -42,8 +47,19 @@ public class MainActivity extends Activity {
 	    tv=(TextView)findViewById(R.id.textView1);
 		im=(ImageView)findViewById(R.id.im);
 		layout=(LinearLayout)findViewById(R.id.l1);
+		
+		try {
+			duration=getIntent().getIntExtra(Util.TIME, SECOND*60*5);
+			frequency=getIntent().getIntExtra(Util.FREQUENCY, 5);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		frequency=(SECOND/frequency)/2;
+		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
 		timer=new Timer();
-		counter=0;
+		
 		new Handler().postDelayed(new Runnable() {
 			
 			@Override
@@ -80,9 +96,9 @@ public class MainActivity extends Activity {
 						Animation.RELATIVE_TO_PARENT, 0.0f);*/
 				
 				
-				t1.setDuration(duration);
-				t2.setDuration(duration);
-				t2.setStartOffset(duration);
+				t1.setDuration(frequency);
+				t2.setDuration(frequency);
+				t2.setStartOffset(frequency);
 				//t2.setRepeatCount(Animation.INFINITE);
 			    animationSet=new AnimationSet(true);
 				animationSet.addAnimation(t1);
@@ -120,33 +136,29 @@ public class MainActivity extends Activity {
 						
 						
 						String text=b1.getText().toString();
-						if (text.equals("Start")) {
+						if (text.equals(START)) {
+							counter=0;
 							im.startAnimation(animationSet);
 							timer.schedule(new MyTimerTask(), 000,1000);
-							b1.setText("Pause");
+							b1.setText(PAUSE);
 						}
 						
 						
-						if (text.equals("Pause")) {
+						if (text.equals(PAUSE)) {
 							t1.pause();
 							t2.pause();
 							end=true;
-							b1.setText("Resume");
+							b1.setText(RESUME);
 							
 							
 						}
-						if (text.equals("Resume")) {
+						if (text.equals(RESUME)) {
 							t1.resume();
 							t2.resume();
 							end=false;
-							b1.setText("Pause");
+							b1.setText(PAUSE);
 						}
 					    
-					
-								
-							
-						
-
 					}
 					
 				});
@@ -160,7 +172,17 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		
+		Button btnSetting=(Button)findViewById(R.id.btnSetting);
+		btnSetting.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+				overridePendingTransition(R.anim.slide_in_right,
+						R.anim.slide_out_left);
+				finish();
+			}
+		});
 
 	}
 	@Override
@@ -184,8 +206,15 @@ public class MainActivity extends Activity {
 		    @Override
 		    public void run() {
 		    	if (!end) {
-		    		 tv.setText(""+counter);
+		    		 
 		 		    counter++;
+		 		   tv.setText(""+counter);
+		 		    if (counter==duration) {
+						end=true;
+						t1.pause();
+						t2.pause();
+						b1.setText(START);
+					}
 				}
 		   
 		    }});
