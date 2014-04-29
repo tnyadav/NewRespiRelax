@@ -4,7 +4,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,8 +27,10 @@ public class MainActivity extends Activity {
 	private static final String START = "Start";
 	private static final String PAUSE = "Pause";
 	private static final String RESUME = "Resume";
-	private static final int SECOND = 60000;
+	private static final int SECOND = 1000;
+	private static final int MINUTE = SECOND*60;
 	private static final String TAG = "MainActivity";
+	private Bundle savedInstanceState;
 	
 	Button b1,b2;
 	ImageView im;
@@ -42,22 +47,24 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		this.savedInstanceState=savedInstanceState;
 		setContentView(R.layout.activity_main);
 	    tv=(TextView)findViewById(R.id.textView1);
 		im=(ImageView)findViewById(R.id.im);
 		layout=(LinearLayout)findViewById(R.id.l1);
 		
 		try {
-			duration=getIntent().getIntExtra(Util.TIME, SECOND*60*5);
+			duration=getIntent().getIntExtra(Util.TIME, 6);
 			frequency=getIntent().getIntExtra(Util.FREQUENCY, 5);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
 		
-		frequency=(SECOND/frequency)/2;
+		
 		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
+		duration=duration*MINUTE;
+		frequency=MINUTE/(frequency*2);
 		timer=new Timer();
 		
 		new Handler().postDelayed(new Runnable() {
@@ -165,22 +172,38 @@ public class MainActivity extends Activity {
 				
 			}
 		}, 1000);
-		
+		IntentFilter filter = new IntentFilter(Util.CLOSE_ACTION);
+		registerReceiver(myBroadcastReceiver, filter);
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		if (savedInstanceState!=null && !b1.getText().toString().equals(START)) {
+			t1.resume();
+			t2.resume();
+			end=false;
+			b1.setText(PAUSE);
+		}
+		
+		
 		Button btnSetting=(Button)findViewById(R.id.btnSetting);
 		btnSetting.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				if (!b1.getText().toString().equals(START)) {
+					
+				t1.pause();
+				t2.pause();
+				end=true;
+				b1.setText(RESUME);
+				}
 				startActivity(new Intent(getApplicationContext(), SettingActivity.class));
 				overridePendingTransition(R.anim.slide_in_right,
 						R.anim.slide_out_left);
-				finish();
+			//	finish();
 			}
 		});
 
@@ -190,12 +213,23 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onPause();
 		
-	/*	counter=0;
-		timer.cancel();
-		animationSet.cancel();
-		overridePendingTransition(0, 0);*/
+
 		
 	}
+	@Override
+	protected void onDestroy() {
+		Log.e("Mainactivity  :", "onDestroy");
+		try{
+			unregisterReceiver(myBroadcastReceiver);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+	
+		super.onDestroy();
+		
+	}
+
 	class MyTimerTask extends TimerTask {
 
 		  @Override
@@ -221,4 +255,11 @@ public class MainActivity extends Activity {
 		  }
 		  
 		 }
+	private BroadcastReceiver myBroadcastReceiver = new BroadcastReceiver() {
+		
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			finish();
+		}
+	};
 }

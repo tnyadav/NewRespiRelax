@@ -1,4 +1,5 @@
 package com.example.respirelax;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -16,106 +17,148 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+
 public class SettingActivity extends Activity {
 
-	private SeekBar seekBarTime,seekBarFrequency;
-	private Button done;
-    private Context context;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.setting);
-        context=this;
-      seekBarTime=(SeekBar)findViewById(R.id.seekBarTime);
-    // seekBarTime.setMax(9);
-      seekBarTime.setOnSeekBarChangeListener(seekBarChangeListenerForTime);
-      seekBarTime.setProgress(0);
-      seekBarTime.setThumb(writeOnDrawable(R.drawable.ball, ""+0));
-      seekBarFrequency=(SeekBar)findViewById(R.id.seekBarFrequency);
-     //seekBarTime.setMax(7);
-      seekBarFrequency.setOnSeekBarChangeListener(seekBarChangeListenerForFrequency);
-      seekBarFrequency.setProgress(0);
-      seekBarFrequency.setThumb(writeOnDrawable(R.drawable.ball, ""+0));
-      done = (Button) findViewById(R.id.btnDone);
-      done.setOnClickListener(new OnClickListener() {
+	private final int MAX_TIME = 600;
+	private final int MAX_FREQUENCY = 500;
+	private final int MIN_PROGRESS_TIME = 3;
+	private final int MIN_PROGRESS_FREQUENCY = 4;
+	private int seekBarTimeProgressValue;
+	private int seekBarFrequencyProgressValue;
+	
+	private SeekBar seekBarTime, seekBarFrequency;
+	private Button btnBack,btnDone;
+	private Context context;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.setting);
+		context = this;
+
+	//seekBarTime initialization
+		seekBarTime = (SeekBar) findViewById(R.id.seekBarTime);
+		seekBarTime.setMax(MAX_TIME);
+		seekBarTime.setProgress(MAX_TIME / 2);
+		seekBarTimeProgressValue = getFilterdProgress(
+				seekBarTime.getProgress(), MIN_PROGRESS_TIME);
+		seekBarTime.setThumb(writeOnDrawable(R.drawable.ball, ""
+				+ seekBarTimeProgressValue));
+		seekBarTime.setOnSeekBarChangeListener(seekBarChangeListenerForTime);
 		
-		@Override
-		public void onClick(View v) {
-			Intent intent =new Intent(getApplicationContext(), MainActivity.class);
-			intent.putExtra(Util.TIME, 5*60*1000);
-			intent.putExtra(Util.FREQUENCY, 4);
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_out_right,
-					R.anim.slide_out_right);
-			finish();
-			
-			
-		}
-	});
-    }
+	//seekBarFrequency initialization
+		seekBarFrequency = (SeekBar) findViewById(R.id.seekBarFrequency);
+		seekBarFrequency.setMax(MAX_FREQUENCY);
+		seekBarFrequency.setProgress(MAX_FREQUENCY / 2);
+		seekBarFrequencyProgressValue = getFilterdProgress(
+				seekBarFrequency.getProgress(), MIN_PROGRESS_FREQUENCY);
+		seekBarFrequency.setThumb(writeOnDrawable(R.drawable.ball, ""
+				+ seekBarFrequencyProgressValue));
+		seekBarFrequency
+				.setOnSeekBarChangeListener(seekBarChangeListenerForFrequency);
 
 
-	private OnSeekBarChangeListener seekBarChangeListenerForTime=new OnSeekBarChangeListener() {
-		
+		btnDone = (Button) findViewById(R.id.btnDone);
+		btnDone.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getApplicationContext(),
+						MainActivity.class);
+				intent.putExtra(Util.TIME, seekBarTimeProgressValue);
+				intent.putExtra(Util.FREQUENCY, seekBarFrequencyProgressValue);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_out_right,
+						R.anim.slide_in_left);
+				Intent sendIntent = new Intent();
+				sendIntent.setAction(Util.CLOSE_ACTION);
+				sendBroadcast(sendIntent);
+				finish();
+
+			}
+		});
+		btnBack = (Button) findViewById(R.id.btnBack);
+		btnBack.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+				overridePendingTransition(R.anim.slide_out_right,
+						R.anim.slide_in_left);
+			}
+		});
+	}
+
+	private OnSeekBarChangeListener seekBarChangeListenerForTime = new OnSeekBarChangeListener() {
+
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
-			// TODO Auto-generated method stub
 			
+
 		}
-		
+
 		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
-			// TODO Auto-generated method stub
 			
+
 		}
-		
+
 		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
-			seekBar.setThumb(writeOnDrawable(R.drawable.ball, ""+progress));
-			//TextView tv=(TextView)findViewById(R.id.textView2);
-			//tv.setText(Integer.toString(progress)+"%");
-			
+			seekBarTimeProgressValue = getFilterdProgress(progress,
+					MIN_PROGRESS_TIME);
+			seekBar.setThumb(writeOnDrawable(R.drawable.ball, ""
+					+ seekBarTimeProgressValue));
+
 		}
 	};
-private OnSeekBarChangeListener seekBarChangeListenerForFrequency=new OnSeekBarChangeListener() {
-		
+	private OnSeekBarChangeListener seekBarChangeListenerForFrequency = new OnSeekBarChangeListener() {
+
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
-			// TODO Auto-generated method stub
 			
+
 		}
-		
+
 		@Override
 		public void onStartTrackingTouch(SeekBar seekBar) {
-			// TODO Auto-generated method stub
 			
+
 		}
-		
+
 		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
-			seekBar.setThumb(writeOnDrawable(R.drawable.ball, ""+progress));
-			//TextView tv=(TextView)findViewById(R.id.textView2);
-			//tv.setText(Integer.toString(progress)+"%");
-			
+			seekBarFrequencyProgressValue =getFilterdProgress(progress, MIN_PROGRESS_FREQUENCY);
+			seekBar.setThumb(writeOnDrawable(R.drawable.ball, ""
+					+ seekBarFrequencyProgressValue));
+
 		}
 	};
-	public BitmapDrawable writeOnDrawable(int drawableId, String text){
 
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId).copy(Bitmap.Config.ARGB_8888, true);
+	public BitmapDrawable writeOnDrawable(int drawableId, String text) {
 
-        Paint paint = new Paint(); 
-        paint.setStyle(Style.FILL);  
-        paint.setColor(Color.BLACK); 
-        paint.setTextSize(50); 
-        paint.setTextAlign(Align.CENTER);
+		Bitmap bm = BitmapFactory.decodeResource(getResources(), drawableId)
+				.copy(Bitmap.Config.ARGB_8888, true);
 
-        Canvas canvas = new Canvas(bm);
-        int xPos = (canvas.getWidth() / 2);
-        int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2)) ; 
-        canvas.drawText(text, xPos, yPos, paint);
+		Paint paint = new Paint();
+		paint.setStyle(Style.FILL);
+		paint.setColor(Color.BLACK);
+		paint.setTextSize(50);
+		paint.setTextAlign(Align.CENTER);
 
-        return new BitmapDrawable(bm);
-    }
+		Canvas canvas = new Canvas(bm);
+		int xPos = (canvas.getWidth() / 2);
+		int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint
+				.ascent()) / 2));
+		canvas.drawText(text, xPos, yPos, paint);
+
+		return new BitmapDrawable(getResources(), bm);
+	}
+
+	private int getFilterdProgress(int progress, int minValue) {
+		return (progress / 100) + minValue;
+	}
 }
