@@ -66,7 +66,7 @@ public class SettingActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(),
 						MainActivity.class);
-				intent.putExtra(Util.TIME, seekBarTimeProgressValue);
+				intent.putExtra(Util.TIME, 1/*seekBarTimeProgressValue*/);
 				intent.putExtra(Util.FREQUENCY, seekBarFrequencyProgressValue);
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_out_right,

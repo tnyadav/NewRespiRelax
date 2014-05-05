@@ -1,5 +1,6 @@
 package com.example.respirelax;
 
+import android.util.Log;
 import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
 
@@ -20,14 +21,22 @@ public class TranslateAnim extends TranslateAnimation{
 	}
     private long mElapsedAtPause=0;
     private boolean mPaused=false;
+    private long counter=0;
 
     @Override
     public boolean getTransformation(long currentTime, Transformation outTransformation) {
-        if(mPaused && mElapsedAtPause==0) {
+       
+    	 
+		   
+    	if(mPaused && mElapsedAtPause==0) {
             mElapsedAtPause=currentTime-getStartTime();
         }
         if(mPaused)
             setStartTime(currentTime-mElapsedAtPause);
+        if (!mPaused) {
+			counter++;
+			//Log.e("TranslateAnim", ""+counter);
+		}
         return super.getTransformation(currentTime, outTransformation);
     }
 
@@ -38,5 +47,8 @@ public class TranslateAnim extends TranslateAnimation{
 
     public void resume() {
         mPaused=false;
+    }
+    public long getCounter() {
+        return counter;
     }
 }

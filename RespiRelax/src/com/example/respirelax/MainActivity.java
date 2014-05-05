@@ -3,6 +3,7 @@ package com.example.respirelax;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,9 +14,11 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,18 +45,21 @@ public class MainActivity extends Activity {
     int frequency=5;
     boolean end=false;
     int counter;
+    int animatiomCounter;
     int threashholeatime;
     Timer timer;
-    
+    int totalDistance,speed;
+    Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.savedInstanceState=savedInstanceState;
 		setContentView(R.layout.activity_main);
+		context=this;
 	    tv=(TextView)findViewById(R.id.textView1);
 		im=(ImageView)findViewById(R.id.im);
 		layout=(LinearLayout)findViewById(R.id.l1);
-		
+		animatiomCounter=0;
 		try {
 			duration=getIntent().getIntExtra(Util.TIME, 6);
 			frequency=getIntent().getIntExtra(Util.FREQUENCY, 5);
@@ -80,6 +86,10 @@ public class MainActivity extends Activity {
 			    
 				int position=height/2;
 				
+				  totalDistance=Util.convertDensityPixelToPixel(context, 300);
+				 speed = totalDistance/75;
+			
+				 Log.e("speed", totalDistance+":"+speed);	
 				
 				t1 = new TranslateAnim(
 						0,
@@ -133,6 +143,7 @@ public class MainActivity extends Activity {
 					public void onAnimationEnd(Animation arg0) {
 						
 						im.startAnimation(animationSet);
+						animatiomCounter++;
 						
 					}
 				});
@@ -148,8 +159,8 @@ public class MainActivity extends Activity {
 						String text=b1.getText().toString();
 						if (text.equals(START)) {
 							counter=0;
-							im.startAnimation(animationSet);
-							timer.schedule(new MyTimerTask(), 000,1000);
+							//im.startAnimation(animationSet);
+							timer.schedule(new MyTimerTask(), 000,10);
 							b1.setText(PAUSE);
 						}
 						
@@ -157,7 +168,7 @@ public class MainActivity extends Activity {
 						if (text.equals(PAUSE)) {
 							t1.pause();
 							t2.pause();
-							end=true;
+						//	end=true;
 							b1.setText(RESUME);
 							
 							
@@ -165,7 +176,7 @@ public class MainActivity extends Activity {
 						if (text.equals(RESUME)) {
 							t1.resume();
 							t2.resume();
-							end=false;
+							//end=false;
 							b1.setText(PAUSE);
 						}
 					    
@@ -240,19 +251,33 @@ public class MainActivity extends Activity {
 	
 		   runOnUiThread(new Runnable(){
 
-		    @Override
+		    @SuppressLint("NewApi")
+			@Override
 		    public void run() {
 		    	if (!end) {
 		    		 
-		 		    counter++;
-		 		   tv.setText(getCounterText(counter));
-		 		   Log.e("tick", counter+":"+threashholeatime);
-		 		    if (counter==threashholeatime) {
-						end=true;
-						t1.pause();
-						t2.pause();
-						b1.setText(START);
+		 		  // counter=(int) t1.getCounter();
+		 		
+		 		   Log.e("tick", counter+":"+threashholeatime+":"+animatiomCounter);
+		 		    if (counter>750) {
+		 		    	 LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+				          params1.setMargins(0, -(int)((counter-750)*.533),0, (int)((counter-750)*.533));
+				          im.setLayoutParams(params1);
+					}else {
+						   tv.setText(getCounterText(counter/100));
+						   
+						   AbsoluteLayout.LayoutParams params = 
+								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
+								
+						   params.y = (int)(counter*.533);
+						   
+					 		//  LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+					         // params.setMargins(0, (int)(counter*.533),0, -(int)(counter*.533));
+					         // params.setMargins(0, counter,0, -(counter));
+					          
+			                  im.setLayoutParams(params);	
 					}
+		 		  counter++;
 				}
 		   
 		    }});
