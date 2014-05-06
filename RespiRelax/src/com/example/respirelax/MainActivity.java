@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
 	Button b1,b2;
 	ImageView im;
 	TextView tv;
-	LinearLayout layout;
+	//LinearLayout layout;
     TranslateAnim t1,t2;
 	AnimationSet animationSet;
     int duration=6;
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 		context=this;
 	    tv=(TextView)findViewById(R.id.textView1);
 		im=(ImageView)findViewById(R.id.im);
-		layout=(LinearLayout)findViewById(R.id.l1);
+		//layout=(LinearLayout)findViewById(R.id.l1);
 		animatiomCounter=0;
 		try {
 			duration=getIntent().getIntExtra(Util.TIME, 6);
@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
 			public void run() {
 				//int y=(int) layout.getTop();
 				int imHeight=im.getHeight();
-				int height=layout.getHeight()-50;
+				int height=Util.convertDensityPixelToPixel(context, 300)-50;
 			    
 				int position=height/2;
 				
@@ -260,9 +260,14 @@ public class MainActivity extends Activity {
 		 		
 		 		   Log.e("tick", counter+":"+threashholeatime+":"+animatiomCounter);
 		 		    if (counter>750) {
-		 		    	 LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-				          params1.setMargins(0, -(int)((counter-750)*.533),0, (int)((counter-750)*.533));
-				          im.setLayoutParams(params1);
+		 		    	
+		 		    	 tv.setText(getCounterText(counter/100));
+						   
+						   AbsoluteLayout.LayoutParams params = 
+								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
+								
+						   params.y = (totalDistance-50)-((int)((counter-750)*.533));
+			                  im.setLayoutParams(params);	
 					}else {
 						   tv.setText(getCounterText(counter/100));
 						   
@@ -270,11 +275,6 @@ public class MainActivity extends Activity {
 								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
 								
 						   params.y = (int)(counter*.533);
-						   
-					 		//  LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-					         // params.setMargins(0, (int)(counter*.533),0, -(int)(counter*.533));
-					         // params.setMargins(0, counter,0, -(counter));
-					          
 			                  im.setLayoutParams(params);	
 					}
 		 		  counter++;

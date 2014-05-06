@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <LinearLayout
+    <AbsoluteLayout
         android:id="@+id/l1"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="300dp"
             android:src="@drawable/inner" />
-    </LinearLayout>
+    </AbsoluteLayout>
 
     <Button
         android:id="@+id/b1"

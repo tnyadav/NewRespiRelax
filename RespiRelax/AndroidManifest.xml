@@ -22,7 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="SettingActivity"></activity>
+        <activity android:name="com.example.respirelax.SettingActivity"></activity>
     </application>
 
 </manifest>
