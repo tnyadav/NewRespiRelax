@@ -1,5 +1,6 @@
 package com.example.respirelax;
 
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -39,14 +40,14 @@ public class MainActivity extends Activity {
 	ImageView im;
 	TextView tv;
 	//LinearLayout layout;
-    TranslateAnim t1,t2;
+
 	AnimationSet animationSet;
     int duration=6;
     int frequency=5;
     boolean end=false;
     int counter;
-    int animatiomCounter;
-    int threashholeatime;
+    int tempCounter;
+    float multiplayer;
     Timer timer;
     int totalDistance,speed;
     Context context;
@@ -59,9 +60,9 @@ public class MainActivity extends Activity {
 	    tv=(TextView)findViewById(R.id.textView1);
 		im=(ImageView)findViewById(R.id.im);
 		//layout=(LinearLayout)findViewById(R.id.l1);
-		animatiomCounter=0;
+	
 		try {
-			duration=getIntent().getIntExtra(Util.TIME, 6);
+			duration=getIntent().getIntExtra(Util.TIME, 1);
 			frequency=getIntent().getIntExtra(Util.FREQUENCY, 5);
 		} catch (Exception e) {
 			
@@ -70,10 +71,16 @@ public class MainActivity extends Activity {
 		
 		
 		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
-		threashholeatime=duration*60;
-		duration=duration*MINUTE;
+		float f=(float)(60/8);
+		Log.e(TAG, "f:"+f);
+		double roundof = Math.round(f * 100.0) / 100.0;
+		Log.e(TAG, "roundof:"+roundof);
+		int i=(int) (roundof*100);
+		Log.e(TAG, "i:"+i);
+		multiplayer=(float)450/i;
+		duration=duration*60*100;
 		frequency=MINUTE/(frequency*2);
-		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
+		Log.e(TAG, "duration : "+duration+" frequency : "+frequency+" multiplayer :"+multiplayer);
 		timer=new Timer();
 		
 		new Handler().postDelayed(new Runnable() {
@@ -91,62 +98,8 @@ public class MainActivity extends Activity {
 			
 				 Log.e("speed", totalDistance+":"+speed);	
 				
-				t1 = new TranslateAnim(
-						0,
-						0,
-						-position, 
-						position);
 				
-				 t2=new TranslateAnim(
-						0,
-						0,
-						position,
-						-position);
-				
-				/*t1 = new TranslateAnim(
-						Animation.RELATIVE_TO_PARENT, 0.0f,
-						Animation.RELATIVE_TO_PARENT, 0.0f,
-						Animation.RELATIVE_TO_PARENT,0.0f, 
-						Animation.RELATIVE_TO_PARENT, 1.0f);
-				
-				 t2=new TranslateAnim(
-						Animation.RELATIVE_TO_PARENT, 0.0f,
-						Animation.RELATIVE_TO_PARENT, 0.0f,
-						Animation.RELATIVE_TO_PARENT,1.0f,
-						Animation.RELATIVE_TO_PARENT, 0.0f);*/
-				
-				
-				t1.setDuration(frequency);
-				t2.setDuration(frequency);
-				t2.setStartOffset(frequency);
-				//t2.setRepeatCount(Animation.INFINITE);
-			    animationSet=new AnimationSet(true);
-				animationSet.addAnimation(t1);
-				animationSet.addAnimation(t2);
-				animationSet.setRepeatMode(Animation.REVERSE);
-				//animationSet.setRepeatCount(5);
-				animationSet.setAnimationListener(new AnimationListener() {
-					
-					@Override
-					public void onAnimationStart(Animation arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void onAnimationRepeat(Animation arg0) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void onAnimationEnd(Animation arg0) {
-						
-						im.startAnimation(animationSet);
-						animatiomCounter++;
-						
-					}
-				});
+			
 				
 				b1=(Button)findViewById(R.id.b1);
 				
@@ -159,24 +112,21 @@ public class MainActivity extends Activity {
 						String text=b1.getText().toString();
 						if (text.equals(START)) {
 							counter=0;
-							//im.startAnimation(animationSet);
 							timer.schedule(new MyTimerTask(), 000,10);
 							b1.setText(PAUSE);
 						}
 						
 						
 						if (text.equals(PAUSE)) {
-							t1.pause();
-							t2.pause();
-						//	end=true;
+							
+							end=true;
 							b1.setText(RESUME);
 							
 							
 						}
 						if (text.equals(RESUME)) {
-							t1.resume();
-							t2.resume();
-							//end=false;
+						
+							end=false;
 							b1.setText(PAUSE);
 						}
 					    
@@ -195,8 +145,7 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onResume();
 		if (savedInstanceState!=null && !b1.getText().toString().equals(START)) {
-			t1.resume();
-			t2.resume();
+	
 			end=false;
 			b1.setText(PAUSE);
 		}
@@ -209,14 +158,13 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				if (!b1.getText().toString().equals(START)) {
 					
-				t1.pause();
-				t2.pause();
+			
 				end=true;
 				b1.setText(RESUME);
 				}
-				startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+				/*startActivity(new Intent(getApplicationContext(), SettingActivity.class));
 				overridePendingTransition(R.anim.slide_in_right,
-						R.anim.slide_out_left);
+						R.anim.slide_out_left);*/
 			//	finish();
 			}
 		});
@@ -256,28 +204,37 @@ public class MainActivity extends Activity {
 		    public void run() {
 		    	if (!end) {
 		    		 
-		 		  // counter=(int) t1.getCounter();
-		 		
-		 		   Log.e("tick", counter+":"+threashholeatime+":"+animatiomCounter);
-		 		    if (counter>750) {
-		 		    	
-		 		    	 tv.setText(getCounterText(counter/100));
+		 		  // Log.e("tick", counter+":"+threashholeatime+":"+animatiomCounter);
+		 		 if (counter%750==0) {
+					tempCounter=0;
+				}
+		 		 Log.e("status", (counter)+":"+duration);
+		 		if ((counter/750) % 2 == 0) {
+		 			 tv.setText(getCounterText(counter/100));
+					   
+					   AbsoluteLayout.LayoutParams params = 
+							    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
+							
+					   params.y = (int)(tempCounter*.533);
+		                  im.setLayoutParams(params);	
+		 			} else {
+		 				tv.setText(getCounterText(counter/100));
 						   
 						   AbsoluteLayout.LayoutParams params = 
 								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
 								
-						   params.y = (totalDistance-50)-((int)((counter-750)*.533));
+						   params.y = (totalDistance-50)-((int)((tempCounter)*.533));
 			                  im.setLayoutParams(params);	
-					}else {
-						   tv.setText(getCounterText(counter/100));
-						   
-						   AbsoluteLayout.LayoutParams params = 
-								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
-								
-						   params.y = (int)(counter*.533);
-			                  im.setLayoutParams(params);	
-					}
+		 			}
+		 		   
+		 		if ((counter)==duration) {
+					end=true;
+					b1.setText(START);
+					counter=0;
+			 		  tempCounter=0;
+				}
 		 		  counter++;
+		 		  tempCounter++;
 				}
 		   
 		    }});
@@ -296,6 +253,8 @@ public class MainActivity extends Activity {
 		if (seconds<10) {
 			strSeconds="0"+seconds;
 		}
+		
+		
 		return strMinuts + ":" + strSeconds;
 		
 	}
