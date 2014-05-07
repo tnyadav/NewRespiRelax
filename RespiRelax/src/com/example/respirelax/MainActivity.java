@@ -39,15 +39,15 @@ public class MainActivity extends Activity {
 	Button b1,b2;
 	ImageView im;
 	TextView tv;
-	//LinearLayout layout;
-
-	AnimationSet animationSet;
-    int duration=6;
-    int frequency=5;
+	
+    int duration=1;
+    int frequency=4;
     boolean end=false;
-    int counter;
-    int tempCounter;
+    
+    int counter,tempCounter;
+
     float multiplayer;
+    int tempMultiplayer,imHeight;
     Timer timer;
     int totalDistance,speed;
     Context context;
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
 	
 		try {
 			duration=getIntent().getIntExtra(Util.TIME, 1);
-			frequency=getIntent().getIntExtra(Util.FREQUENCY, 5);
+			frequency=getIntent().getIntExtra(Util.FREQUENCY, 4);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -71,35 +71,28 @@ public class MainActivity extends Activity {
 		
 		
 		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
-		float f=(float)(60/8);
-		Log.e(TAG, "f:"+f);
-		double roundof = Math.round(f * 100.0) / 100.0;
-		Log.e(TAG, "roundof:"+roundof);
-		int i=(int) (roundof*100);
-		Log.e(TAG, "i:"+i);
-		multiplayer=(float)450/i;
-		duration=duration*60*100;
-		frequency=MINUTE/(frequency*2);
-		Log.e(TAG, "duration : "+duration+" frequency : "+frequency+" multiplayer :"+multiplayer);
+		
 		timer=new Timer();
 		
 		new Handler().postDelayed(new Runnable() {
 			
 			@Override
-			public void run() {
-				//int y=(int) layout.getTop();
-				int imHeight=im.getHeight();
-				int height=Util.convertDensityPixelToPixel(context, 300)-50;
-			    
-				int position=height/2;
-				
-				  totalDistance=Util.convertDensityPixelToPixel(context, 300);
-				 speed = totalDistance/75;
-			
-				 Log.e("speed", totalDistance+":"+speed);	
-				
-				
-			
+			public void run() { 
+				    
+
+                    imHeight=im.getHeight();
+                  //  imHeight=400;
+				    float f=((float)60/(float)(2*frequency));
+					Log.e(TAG, ""+f);
+				    double roundof = Math.round(f * 100.0) / 100.0;
+					
+					tempMultiplayer=(int) (roundof*100);
+					multiplayer=(float) ((float)imHeight/(float)tempMultiplayer);
+					multiplayer=(float) 0.533;
+					Log.e(TAG, "multiplayer"+multiplayer);
+					   
+					duration=duration*60*100;
+					Log.e(TAG, "imHeight : "+imHeight+" tempMultiplayer : "+tempMultiplayer+" multiplayer : "+multiplayer+" duration : "+duration);
 				
 				b1=(Button)findViewById(R.id.b1);
 				
@@ -162,9 +155,9 @@ public class MainActivity extends Activity {
 				end=true;
 				b1.setText(RESUME);
 				}
-				/*startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+				startActivity(new Intent(getApplicationContext(), SettingActivity.class));
 				overridePendingTransition(R.anim.slide_in_right,
-						R.anim.slide_out_left);*/
+						R.anim.slide_out_left);
 			//	finish();
 			}
 		});
@@ -205,17 +198,17 @@ public class MainActivity extends Activity {
 		    	if (!end) {
 		    		 
 		 		  // Log.e("tick", counter+":"+threashholeatime+":"+animatiomCounter);
-		 		 if (counter%750==0) {
+		 		 if (counter%tempMultiplayer==0) {
 					tempCounter=0;
 				}
 		 		 Log.e("status", (counter)+":"+duration);
-		 		if ((counter/750) % 2 == 0) {
+		 		if ((counter/tempMultiplayer) % 2 == 0) {
 		 			 tv.setText(getCounterText(counter/100));
 					   
 					   AbsoluteLayout.LayoutParams params = 
 							    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
 							
-					   params.y = (int)(tempCounter*.533);
+					   params.y = (int)(tempCounter*multiplayer);
 		                  im.setLayoutParams(params);	
 		 			} else {
 		 				tv.setText(getCounterText(counter/100));
@@ -223,7 +216,7 @@ public class MainActivity extends Activity {
 						   AbsoluteLayout.LayoutParams params = 
 								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
 								
-						   params.y = (totalDistance-50)-((int)((tempCounter)*.533));
+						   params.y = (imHeight-50)-((int)((tempCounter)*multiplayer));
 			                  im.setLayoutParams(params);	
 		 			}
 		 		   
