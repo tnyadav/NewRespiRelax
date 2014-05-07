@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
 			public void run() { 
 				    
 
-                    imHeight=im.getHeight();
+                    imHeight=im.getHeight()-50;
                   //  imHeight=400;
 				    float f=((float)60/(float)(2*frequency));
 					Log.e(TAG, ""+f);
@@ -88,7 +88,7 @@ public class MainActivity extends Activity {
 					
 					tempMultiplayer=(int) (roundof*100);
 					multiplayer=(float) ((float)imHeight/(float)tempMultiplayer);
-					multiplayer=(float) 0.533;
+					//multiplayer=(float) 0.533;
 					Log.e(TAG, "multiplayer"+multiplayer);
 					   
 					duration=duration*60*100;
@@ -202,21 +202,22 @@ public class MainActivity extends Activity {
 					tempCounter=0;
 				}
 		 		 Log.e("status", (counter)+":"+duration);
+		 		 AbsoluteLayout.LayoutParams params = 
+						    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
 		 		if ((counter/tempMultiplayer) % 2 == 0) {
+		 			 params.y = 0;
+	                  im.setLayoutParams(params);
 		 			 tv.setText(getCounterText(counter/100));
-					   
-					   AbsoluteLayout.LayoutParams params = 
-							    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
-							
+					  		
 					   params.y = (int)(tempCounter*multiplayer);
 		                  im.setLayoutParams(params);	
 		 			} else {
+		 				 params.y = imHeight;
+		                  im.setLayoutParams(params);
 		 				tv.setText(getCounterText(counter/100));
 						   
-						   AbsoluteLayout.LayoutParams params = 
-								    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
-								
-						   params.y = (imHeight-50)-((int)((tempCounter)*multiplayer));
+						 		
+						   params.y = (imHeight)-((int)((tempCounter)*multiplayer));
 			                  im.setLayoutParams(params);	
 		 			}
 		 		   
@@ -235,7 +236,7 @@ public class MainActivity extends Activity {
 		  
 		 }
 	private String getCounterText(int second) {
-		
+		//second=duration-second;
 		int minutes = (second % 3600) / 60;
 		int seconds = second % 60;
 		String strMinuts=""+minutes;
