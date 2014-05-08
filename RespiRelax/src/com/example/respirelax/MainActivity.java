@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
 	private static final String TAG = "MainActivity";
 	private Bundle savedInstanceState;
 	
-	Button b1,b2;
+	Button b1,b2,guide;
 	ImageView im;
 	TextView tv;
 	
@@ -161,6 +161,23 @@ public class MainActivity extends Activity {
 			//	finish();
 			}
 		});
+		Button guide=(Button)findViewById(R.id.guide);
+		guide.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (!b1.getText().toString().equals(START)) {
+					
+			
+				end=true;
+				b1.setText(RESUME);
+				}
+				startActivity(new Intent(getApplicationContext(), GuideActivity.class));
+				overridePendingTransition(R.anim.slide_in_right,
+						R.anim.slide_out_left);
+			//	finish();
+			}
+		});
 
 	}
 	@Override
@@ -239,7 +256,7 @@ public class MainActivity extends Activity {
 		  
 		 }
 	private String getCounterText(int second) {
-		//second=duration-second;
+		second=duration-second;
 		int minutes = (second % 3600) / 60;
 		int seconds = second % 60;
 		String strMinuts=""+minutes;
