@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 	ImageView im;
 	TextView tv;
 	
-    int duration=1;
+    int duration=1,newDuration;
     int frequency=4;
     boolean end=false;
     
@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		
+		newDuration=duration;
 		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
 		
 		timer=new Timer();
@@ -237,8 +237,10 @@ public class MainActivity extends Activity {
 									- ((int) ((tempCounter) * multiplayer));
 							im.setLayoutParams(params);
 						}
+
 						counter++;
 						tempCounter++;
+
                         tv.setText(getCounterText(counter / 100));
 						if ((counter) == duration) {
 							params.y = 0;
@@ -256,20 +258,28 @@ public class MainActivity extends Activity {
 		  
 		 }
 	private String getCounterText(int second) {
-		second=duration-second;
-		int minutes = (second % 3600) / 60;
-		int seconds = second % 60;
-		String strMinuts=""+minutes;
-	    String strSeconds=""+seconds;
-		if (minutes<10) {
-			strMinuts="0"+minutes;
-		}
-		if (seconds<10) {
-			strSeconds="0"+seconds;
-		}
-		
-		
-		return strMinuts + ":" + strSeconds;
+		newDuration=((newDuration*60)%3600)/60;
+		  int minutes = (second % 3600) / 60;
+		  int seconds = second % 60;
+		  
+		  int totalMinutes=/*((getIntent().getIntExtra(Util.TIME, 1)*60)%3600)/60*/newDuration;
+		  int minusMinut=totalMinutes-minutes;
+		  int minusSecond=60-seconds;
+		  minusMinut=minusMinut-1;
+		  String strMinuts=""+(minusMinut);
+		  String strSeconds=""+minusSecond;
+		  
+		  if (minusMinut<10) {
+		   strMinuts="0"+minusMinut;
+		  }
+		  if (minusSecond<10) {
+		   strSeconds="0"+minusSecond;
+		  }
+		  
+		  if (minusMinut<0) {
+		   return "00" + ":" + "00";
+		  }
+		  return strMinuts + ":" + strSeconds;
 		
 	}
 	private BroadcastReceiver myBroadcastReceiver = new BroadcastReceiver() {
