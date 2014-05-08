@@ -13,17 +13,17 @@
 
     <AbsoluteLayout
         android:id="@+id/l1"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_width="50dp"
+        android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/newback" >
+        android:background="@drawable/metter_back" >
 
         <ImageView
             android:id="@+id/im"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:src="@drawable/inner" />
+            android:layout_width="50dp"
+            android:layout_height="400dp"
+            android:src="@drawable/metter" />
     </AbsoluteLayout>
 
     <Button

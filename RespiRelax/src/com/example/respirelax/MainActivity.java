@@ -194,44 +194,47 @@ public class MainActivity extends Activity {
 
 		    @SuppressLint("NewApi")
 			@Override
-		    public void run() {
-		    	if (!end) {
-		    		 
-		 		  // Log.e("tick", counter+":"+threashholeatime+":"+animatiomCounter);
-		 		 if (counter%tempMultiplayer==0) {
-					tempCounter=0;
-				}
-		 		 Log.e("status", (counter)+":"+duration);
-		 		 AbsoluteLayout.LayoutParams params = 
-						    (AbsoluteLayout.LayoutParams)im.getLayoutParams();
-		 		if ((counter/tempMultiplayer) % 2 == 0) {
-		 			 params.y = 0;
-	                  im.setLayoutParams(params);
-		 			 tv.setText(getCounterText(counter/100));
-					  		
-					   params.y = (int)(tempCounter*multiplayer);
-		                  im.setLayoutParams(params);	
-		 			} else {
-		 				 params.y = imHeight;
-		                  im.setLayoutParams(params);
-		 				tv.setText(getCounterText(counter/100));
-						   
-						 		
-						   params.y = (imHeight)-((int)((tempCounter)*multiplayer));
-			                  im.setLayoutParams(params);	
-		 			}
-		 		   
-		 		if ((counter)==duration) {
-					end=true;
-					b1.setText(START);
-					counter=0;
-			 		  tempCounter=0;
-				}
-		 		  counter++;
-		 		  tempCounter++;
-				}
-		   
-		    }});
+				public void run() {
+					if (!end) {
+
+						// Log.e("tick",
+						// counter+":"+threashholeatime+":"+animatiomCounter);
+						if (counter % tempMultiplayer == 0) {
+							tempCounter = 0;
+						}
+						AbsoluteLayout.LayoutParams params = (AbsoluteLayout.LayoutParams) im
+								.getLayoutParams();
+						if ((counter / tempMultiplayer) % 2 == 0) {
+							
+							params.y = 0;
+				
+							im.setLayoutParams(params);
+
+							params.y = (int) (tempCounter * multiplayer);
+							im.setLayoutParams(params);
+						} else {
+						
+							params.y = imHeight;
+							im.setLayoutParams(params);
+							params.y = (imHeight)
+									- ((int) ((tempCounter) * multiplayer));
+							im.setLayoutParams(params);
+						}
+						counter++;
+						tempCounter++;
+                        tv.setText(getCounterText(counter / 100));
+						if ((counter) == duration) {
+							params.y = 0;
+							im.setLayoutParams(params);
+							end = true;
+							b1.setText(START);
+							counter = 0;
+							tempCounter = 0;
+						}
+
+					}
+
+				}});
 		  }
 		  
 		 }
