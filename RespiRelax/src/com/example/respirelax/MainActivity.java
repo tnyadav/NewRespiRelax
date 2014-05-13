@@ -21,6 +21,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,9 +29,9 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	
-	private static final String START = "Start";
+/*	private static final String START = "Start";
 	private static final String PAUSE = "Pause";
-	private static final String RESUME = "Resume";
+	private static final Mode RESUME = "Resume";*/
 	private static final int SECOND = 1000;
 	private static final int MINUTE = SECOND*60;
 	private static final String TAG = "MainActivity";
@@ -41,7 +42,7 @@ public class MainActivity extends Activity {
 	TextView tv;
 	
     int duration=1,newDuration;
-    int frequency=4;
+    int frequency=10;
     boolean end=false;
     
     int counter,tempCounter;
@@ -51,6 +52,10 @@ public class MainActivity extends Activity {
     Timer timer;
     int totalDistance,speed;
     Context context;
+    FrameLayout.LayoutParams params;
+    private enum Mode {START,PAUSE,RESUME};
+    
+    Mode mode;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,20 +64,22 @@ public class MainActivity extends Activity {
 		context=this;
 	    tv=(TextView)findViewById(R.id.textView1);
 		im=(ImageView)findViewById(R.id.im);
+		mode=Mode.START;
 		//layout=(LinearLayout)findViewById(R.id.l1);
 	
 		try {
 			duration=getIntent().getIntExtra(Util.TIME, 1);
-			frequency=getIntent().getIntExtra(Util.FREQUENCY, 4);
+			frequency=getIntent().getIntExtra(Util.FREQUENCY, 20);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 		}
 		
-		newDuration=duration;
+		 newDuration=((duration*60)%3600);
 		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
+	    params = (FrameLayout.LayoutParams) im
+				.getLayoutParams();
 		
-		timer=new Timer();
 		
 		new Handler().postDelayed(new Runnable() {
 			
@@ -81,14 +88,15 @@ public class MainActivity extends Activity {
 				    
 
                     imHeight=im.getHeight()-50;
-                  //  imHeight=400;
+                    params.topMargin = imHeight;
+            		im.setLayoutParams(params);
+            		im.setVisibility(View.VISIBLE);
 				    float f=((float)60/(float)(2*frequency));
 					Log.e(TAG, ""+f);
 				    double roundof = Math.round(f * 100.0) / 100.0;
 					
 					tempMultiplayer=(int) (roundof*100);
 					multiplayer=(float) ((float)imHeight/(float)tempMultiplayer);
-					//multiplayer=(float) 0.533;
 					Log.e(TAG, "multiplayer"+multiplayer);
 					   
 					duration=duration*60*100;
@@ -100,47 +108,45 @@ public class MainActivity extends Activity {
 					
 					@Override
 					public void onClick(View arg0) {
-						
-						
-						String text=b1.getText().toString();
-						if (text.equals(START)) {
-							counter=0;
-							timer.schedule(new MyTimerTask(), 000,10);
-							b1.setText(PAUSE);
+
+						switch (mode) {
+						case START:
+							counter = 0;
+							timer=new Timer();
+							timer.schedule(new MyTimerTask(), 000, 10);
+							mode = Mode.PAUSE;
+							break;
+						case PAUSE:
+							end = true;
+							mode = Mode.RESUME;
+							break;
+						case RESUME:
+							end = false;
+							mode = Mode.PAUSE;
+							break;
+						default:
+							break;
 						}
-						
-						
-						if (text.equals(PAUSE)) {
-							
-							end=true;
-							b1.setText(RESUME);
-							
-							
-						}
-						if (text.equals(RESUME)) {
-						
-							end=false;
-							b1.setText(PAUSE);
-						}
-					    
+
 					}
 					
 				});
 				
 			}
-		}, 1000);
+		}, 500);
+		
 		IntentFilter filter = new IntentFilter(Util.CLOSE_ACTION);
 		registerReceiver(myBroadcastReceiver, filter);
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
-		if (savedInstanceState!=null && !b1.getText().toString().equals(START)) {
+		if (savedInstanceState!=null && mode==Mode.START) {
 	
 			end=false;
-			b1.setText(PAUSE);
+			mode= Mode.PAUSE;;
 		}
 		
 		
@@ -149,11 +155,9 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if (!b1.getText().toString().equals(START)) {
-					
-			
+				if ( mode!=Mode.START) {
 				end=true;
-				b1.setText(RESUME);
+				mode=Mode.RESUME;
 				}
 				startActivity(new Intent(getApplicationContext(), SettingActivity.class));
 				overridePendingTransition(R.anim.slide_in_right,
@@ -166,11 +170,9 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				if (!b1.getText().toString().equals(START)) {
-					
-			
+				if (mode!=Mode.START) {
 				end=true;
-				b1.setText(RESUME);
+				mode=Mode.RESUME;
 				}
 				startActivity(new Intent(getApplicationContext(), GuideActivity.class));
 				overridePendingTransition(R.anim.slide_in_right,
@@ -182,7 +184,7 @@ public class MainActivity extends Activity {
 	}
 	@Override
 	protected void onPause() {
-		// TODO Auto-generated method stub
+		
 		super.onPause();
 		
 
@@ -196,9 +198,7 @@ public class MainActivity extends Activity {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		
-	
-		super.onDestroy();
+			super.onDestroy();
 		
 	}
 
@@ -209,78 +209,69 @@ public class MainActivity extends Activity {
 	
 		   runOnUiThread(new Runnable(){
 
-		    @SuppressLint("NewApi")
+		   
 			@Override
 				public void run() {
-					if (!end) {
+					if (!end ) {
 
-						// Log.e("tick",
-						// counter+":"+threashholeatime+":"+animatiomCounter);
 						if (counter % tempMultiplayer == 0) {
 							tempCounter = 0;
 						}
-						AbsoluteLayout.LayoutParams params = (AbsoluteLayout.LayoutParams) im
-								.getLayoutParams();
-						if ((counter / tempMultiplayer) % 2 == 0) {
-							
-							params.y = 0;
-				
-							im.setLayoutParams(params);
-
-							params.y = (int) (tempCounter * multiplayer);
-							im.setLayoutParams(params);
-						} else {
+						tv.setText(getCounterText(counter / 100));
+						if (counter<duration) {
 						
-							params.y = imHeight;
-							im.setLayoutParams(params);
-							params.y = (imHeight)
-									- ((int) ((tempCounter) * multiplayer));
-							im.setLayoutParams(params);
+							if ((counter / tempMultiplayer) % 2 == 0) {
+								params.topMargin=imHeight;
+								im.setLayoutParams(params);
+								params.topMargin= (imHeight)
+										- ((int) ((tempCounter) * multiplayer));
+								im.setLayoutParams(params);
+							} else {
+								params.topMargin = 0;
+								im.setLayoutParams(params);
+                                params.topMargin = (int) (tempCounter * multiplayer);
+								im.setLayoutParams(params);
+							}
 						}
-
-						counter++;
-						tempCounter++;
-
-                        tv.setText(getCounterText(counter / 100));
-						if ((counter) == duration) {
-							params.y = 0;
-							im.setLayoutParams(params);
+						
+                        
+                        
+						if (counter == duration) {
+							Log.e(TAG, "counter : "+(counter/ 100));
 							end = true;
-							b1.setText(START);
+							timer.cancel();
+							params.topMargin = imHeight;
+							im.setLayoutParams(params);
+							mode = Mode.START;
 							counter = 0;
 							tempCounter = 0;
 						}
-
+						counter++;
+						tempCounter++;	
 					}
 
 				}});
 		  }
 		  
 		 }
+
 	private String getCounterText(int second) {
-		newDuration=((newDuration*60)%3600)/60;
-		  int minutes = (second % 3600) / 60;
-		  int seconds = second % 60;
-		  
-		  int totalMinutes=/*((getIntent().getIntExtra(Util.TIME, 1)*60)%3600)/60*/newDuration;
-		  int minusMinut=totalMinutes-minutes;
-		  int minusSecond=60-seconds;
-		  minusMinut=minusMinut-1;
-		  String strMinuts=""+(minusMinut);
-		  String strSeconds=""+minusSecond;
-		  
-		  if (minusMinut<10) {
-		   strMinuts="0"+minusMinut;
-		  }
-		  if (minusSecond<10) {
-		   strSeconds="0"+minusSecond;
-		  }
-		  
-		  if (minusMinut<0) {
-		   return "00" + ":" + "00";
-		  }
-		  return strMinuts + ":" + strSeconds;
-		
+		second = newDuration - second;
+		int minutes = (second % 3600) / 60;
+		second = second % 60;
+		return twoDigitString(minutes) + " : " + twoDigitString(second);
+
+	}
+
+	private String twoDigitString(int number) {
+
+		if (number == 0) {
+			return "00";
+		}
+		if (number / 10 == 0) {
+			return "0" + number;
+		}
+		return String.valueOf(number);
 	}
 	private BroadcastReceiver myBroadcastReceiver = new BroadcastReceiver() {
 		
