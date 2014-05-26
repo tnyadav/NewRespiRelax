@@ -19,5 +19,16 @@
         android:gravity="center"
         android:text="Back"
         android:textColor="@android:color/white" />
+    
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_below="@+id/btnBack"
+        android:text="your guide content will be here..... \n your guide content will be here..... \n your guide content will be here..... \n your guide content will be here..... \n your guide content will be here..... \n your guide content will be here..... \n "
+        android:textColor="@android:color/black"
+        android:layout_margin="10dip" />
 
 </RelativeLayout>

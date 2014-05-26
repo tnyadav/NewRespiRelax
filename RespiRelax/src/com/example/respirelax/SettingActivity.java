@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -28,7 +29,8 @@ public class SettingActivity extends Activity {
 	private int seekBarFrequencyProgressValue;
 	
 	private SeekBar seekBarTime, seekBarFrequency;
-	private Button btnBack,btnDone;
+	private Button btnDone;
+	ImageView btnBack;
 	private Context context;
 
 	@Override
@@ -78,7 +80,19 @@ public class SettingActivity extends Activity {
 
 			}
 		});
-		btnBack = (Button) findViewById(R.id.btnBack);
+		Button guide=(Button)findViewById(R.id.guide);
+		guide.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				startActivity(new Intent(getApplicationContext(), GuideActivity.class));
+				overridePendingTransition(R.anim.slide_in_right,
+						R.anim.slide_out_left);
+			//	finish();
+			}
+		});
+		btnBack = (ImageView) findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -145,7 +159,7 @@ public class SettingActivity extends Activity {
 
 		Paint paint = new Paint();
 		paint.setStyle(Style.FILL);
-		paint.setColor(Color.BLACK);
+		paint.setColor(Color.WHITE);
 		paint.setTextSize(50);
 		paint.setTextAlign(Align.CENTER);
 

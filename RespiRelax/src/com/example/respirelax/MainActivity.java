@@ -4,12 +4,17 @@ import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.example.respirelax.ScalingUtilities.ScalingLogic;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,6 +29,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -38,7 +44,8 @@ public class MainActivity extends Activity {
 	private Bundle savedInstanceState;
 	
 	Button b1,b2,guide;
-	ImageView im;
+	FrameLayout l1;
+	LinearLayout im;
 	TextView tv;
 	
     int duration=1,newDuration;
@@ -48,14 +55,17 @@ public class MainActivity extends Activity {
     int counter,tempCounter;
 
     float multiplayer;
-    int tempMultiplayer,imHeight;
+    int tempMultiplayer,imHeight,height,width;
     Timer timer;
     int totalDistance,speed;
     Context context;
     FrameLayout.LayoutParams params;
     private enum Mode {START,PAUSE,RESUME};
     
-    Mode mode;
+    Mode mode= Mode.START;
+    Bitmap back,front;
+	@SuppressWarnings("deprecation")
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,10 +73,23 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		context=this;
 	    tv=(TextView)findViewById(R.id.textView1);
-		im=(ImageView)findViewById(R.id.im);
-		mode=Mode.START;
-		//layout=(LinearLayout)findViewById(R.id.l1);
-	
+	    l1=(FrameLayout)findViewById(R.id.l1);
+		im=(LinearLayout)findViewById(R.id.im);
+		
+		   height=Util.getScreenHeightPixel(this);
+		   width=Util.getScreenWidthPixel(this);
+		
+		 back = ScalingUtilities.decodeResource(getResources(),
+				R.drawable.metter_back, Util.getScreenWidthPixel(this),
+				Util.getScreenHeightPixel(this) - 500, ScalingLogic.FIT);
+		 back =ScalingUtilities.createScaledBitmap(back, width, height-200, ScalingLogic.FIT);
+		 front=ScalingUtilities.decodeResource(getResources(),
+				R.drawable.metter, Util.getScreenWidthPixel(this),
+				Util.getScreenHeightPixel(this) - 500, ScalingLogic.FIT);
+		 front =ScalingUtilities.createScaledBitmap(front, width, height-200, ScalingLogic.FIT);
+		 
+		 
+		
 		try {
 			duration=getIntent().getIntExtra(Util.TIME, 1);
 			frequency=getIntent().getIntExtra(Util.FREQUENCY, 20);
@@ -76,21 +99,43 @@ public class MainActivity extends Activity {
 		}
 		
 		 newDuration=((duration*60)%3600);
+
+			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(front.getWidth(), front.getHeight());
+			lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+			lp.addRule(RelativeLayout.CENTER_VERTICAL);
+			l1.setLayoutParams(lp);
+			
+			int sdk = android.os.Build.VERSION.SDK_INT;
+			if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+				    l1.setBackgroundDrawable(new BitmapDrawable(getResources(), back));
+					im.setBackgroundDrawable(new BitmapDrawable(getResources(), front));
+			} else {
+				    l1.setBackground(new BitmapDrawable(getResources(), back));
+					im.setBackground(new BitmapDrawable(getResources(), front));;
+			}
+			
+		   
+				
+			Bitmap boble=BitmapFactory.decodeResource(getResources(), R.drawable.boble);
+			boble=ScalingUtilities.createScaledBitmap(boble, front.getWidth(), 500, ScalingLogic.FIT);
+			
+			imHeight=front.getHeight()-boble.getHeight();
+			boble.recycle();
+			params = new FrameLayout.LayoutParams(front.getWidth(), front.getHeight());
+			params.topMargin = imHeight;
+			im.setLayoutParams(params);
+	   		im.setVisibility(View.VISIBLE);
+			
 		Log.e(TAG, "duration : "+duration+" frequency : "+frequency);
-	    params = (FrameLayout.LayoutParams) im
-				.getLayoutParams();
-		
+	   
 		
 		new Handler().postDelayed(new Runnable() {
 			
 			@Override
 			public void run() { 
-				    
-
-                    imHeight=im.getHeight()-50;
-                    params.topMargin = imHeight;
-            		im.setLayoutParams(params);
-            		im.setVisibility(View.VISIBLE);
+				 	
+			
+				
 				    float f=((float)60/(float)(2*frequency));
 					Log.e(TAG, ""+f);
 				    double roundof = Math.round(f * 100.0) / 100.0;
