@@ -91,8 +91,8 @@ public class MainActivity extends Activity {
 		 
 		
 		try {
-			duration=getIntent().getIntExtra(Util.TIME, 1);
-			frequency=getIntent().getIntExtra(Util.FREQUENCY, 20);
+			duration=getIntent().getIntExtra(Util.TIME, 6);
+			frequency=getIntent().getIntExtra(Util.FREQUENCY, 6);
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -179,7 +179,7 @@ public class MainActivity extends Activity {
 				
 			}
 		}, 500);
-		
+	    tv.setText(getCounterText(0));
 		IntentFilter filter = new IntentFilter(Util.CLOSE_ACTION);
 		registerReceiver(myBroadcastReceiver, filter);
 	}

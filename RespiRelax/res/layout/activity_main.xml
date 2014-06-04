@@ -33,12 +33,11 @@
 
         <Button
             android:id="@+id/b1"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/timer_bg"
+            android:background="@drawable/play"
             android:layout_gravity="right"
-            android:text="Start"
             android:textColor="@android:color/white" />
 
         <ImageView
@@ -81,36 +80,82 @@
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/timer_bg"
             android:gravity="center"
             android:text="00:00"
             android:textColor="@android:color/white" />
 
-        <TextView
+        <com.example.respirelax.CalibriTextView
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-             android:textColor="#1411DB"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:text="TEMP RESET" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/setting_button" />
-
-    <Button
-        android:id="@+id/guide"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/guide" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/guide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"  
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/guide" />
+
+            <com.example.respirelax.CalibriTextView
+                android:id="@+id/calibriTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                  android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Guide" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btnSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                  android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/setting_button" />
+
+            <com.example.respirelax.CalibriTextView
+                android:id="@+id/calibriTextView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                  android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Setting" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

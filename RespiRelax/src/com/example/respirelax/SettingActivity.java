@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
@@ -31,6 +32,7 @@ public class SettingActivity extends Activity {
 	private SeekBar seekBarTime, seekBarFrequency;
 	private Button btnDone;
 	ImageView btnBack;
+	LinearLayout c1,c2,c3;
 	private Context context;
 
 	@Override
@@ -59,6 +61,12 @@ public class SettingActivity extends Activity {
 				+ seekBarFrequencyProgressValue));
 		seekBarFrequency
 				.setOnSeekBarChangeListener(seekBarChangeListenerForFrequency);
+		c1=(LinearLayout)findViewById(R.id.c1);
+		c1.setOnClickListener(boxOnClickListener);
+		c2=(LinearLayout)findViewById(R.id.c2);
+		c2.setOnClickListener(boxOnClickListener);
+		c3=(LinearLayout)findViewById(R.id.c3);
+		c3.setOnClickListener(boxOnClickListener);
 
 
 		btnDone = (Button) findViewById(R.id.btnDone);
@@ -175,4 +183,33 @@ public class SettingActivity extends Activity {
 	private int getFilterdProgress(int progress, int minValue) {
 		return (progress / 100) + minValue;
 	}
+	OnClickListener boxOnClickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
+			switch (v.getId()) {
+			case R.id.c1:
+              c1.setBackgroundResource(android.R.color.black);
+              c2.setBackgroundResource(android.R.color.transparent);
+              c3.setBackgroundResource(android.R.color.transparent);
+				break;
+			case R.id.c2:
+				  c2.setBackgroundResource(android.R.color.black);
+	              c1.setBackgroundResource(android.R.color.transparent);
+	              c3.setBackgroundResource(android.R.color.transparent);
+			
+				break;
+			case R.id.c3:
+				  c3.setBackgroundResource(android.R.color.black);
+	              c2.setBackgroundResource(android.R.color.transparent);
+	              c1.setBackgroundResource(android.R.color.transparent);
+			
+				break;
+			default:
+				break;
+			}
+			
+		}
+	};
 }

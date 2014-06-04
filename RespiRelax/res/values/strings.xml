@@ -4,5 +4,11 @@
     <string name="app_name">RespiRelax</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="inspiration">INSPIRATION</string>
+    <string name="expiration">EIXPIRATION</string>
+    <string name="relaxtion"> RELAXANT </string>
+    <string name="four">40%</string>
+    <string name="six">60%</string>
+    <string name="validator">VALIDATOR</string>
 
 </resources>
