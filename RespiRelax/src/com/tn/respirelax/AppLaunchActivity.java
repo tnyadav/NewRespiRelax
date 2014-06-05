@@ -1,5 +1,5 @@
 
-package com.example.respirelax;
+package com.tn.respirelax;
 
 
 import android.app.Activity;
@@ -10,6 +10,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import com.tn.respirelax.R;
 
 public class AppLaunchActivity extends Activity {
  

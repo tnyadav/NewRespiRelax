@@ -1,4 +1,4 @@
-package com.example.respirelax;
+package com.tn.respirelax.util;
 
 import android.content.Context;
 import android.graphics.Typeface;

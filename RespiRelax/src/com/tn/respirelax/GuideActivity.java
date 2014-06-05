@@ -1,4 +1,4 @@
-package com.example.respirelax;
+package com.tn.respirelax;
 
 import java.util.Locale;
 
@@ -20,6 +20,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import com.tn.respirelax.R;
 
 public class GuideActivity extends Activity {
 

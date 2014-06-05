@@ -1,4 +1,4 @@
-package com.example.respirelax;
+package com.tn.respirelax;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,13 +19,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import com.tn.respirelax.R;
+import com.tn.respirelax.util.Util;
 
 public class SettingActivity extends Activity {
 
 	private final int MAX_TIME = 600;
-	private final int MAX_FREQUENCY = 500;
+	private final int MAX_FREQUENCY = 300;
+	
 	private final int MIN_PROGRESS_TIME = 3;
 	private final int MIN_PROGRESS_FREQUENCY = 4;
+	
 	private int seekBarTimeProgressValue;
 	private int seekBarFrequencyProgressValue;
 	
@@ -44,7 +48,7 @@ public class SettingActivity extends Activity {
 	//seekBarTime initialization
 		seekBarTime = (SeekBar) findViewById(R.id.seekBarTime);
 		seekBarTime.setMax(MAX_TIME);
-		seekBarTime.setProgress(MAX_TIME / 2);
+		seekBarTime.setProgress(200);
 		seekBarTimeProgressValue = getFilterdProgress(
 				seekBarTime.getProgress(), MIN_PROGRESS_TIME);
 		seekBarTime.setThumb(writeOnDrawable(R.drawable.ball, ""
@@ -54,7 +58,7 @@ public class SettingActivity extends Activity {
 	//seekBarFrequency initialization
 		seekBarFrequency = (SeekBar) findViewById(R.id.seekBarFrequency);
 		seekBarFrequency.setMax(MAX_FREQUENCY);
-		seekBarFrequency.setProgress(MAX_FREQUENCY / 2);
+		seekBarFrequency.setProgress(200);
 		seekBarFrequencyProgressValue = getFilterdProgress(
 				seekBarFrequency.getProgress(), MIN_PROGRESS_FREQUENCY);
 		seekBarFrequency.setThumb(writeOnDrawable(R.drawable.ball, ""
@@ -190,18 +194,18 @@ public class SettingActivity extends Activity {
 			
 			switch (v.getId()) {
 			case R.id.c1:
-              c1.setBackgroundResource(android.R.color.black);
+              c1.setBackgroundResource(android.R.color.white);
               c2.setBackgroundResource(android.R.color.transparent);
               c3.setBackgroundResource(android.R.color.transparent);
 				break;
 			case R.id.c2:
-				  c2.setBackgroundResource(android.R.color.black);
+				  c2.setBackgroundResource(android.R.color.white);
 	              c1.setBackgroundResource(android.R.color.transparent);
 	              c3.setBackgroundResource(android.R.color.transparent);
 			
 				break;
 			case R.id.c3:
-				  c3.setBackgroundResource(android.R.color.black);
+				  c3.setBackgroundResource(android.R.color.white);
 	              c2.setBackgroundResource(android.R.color.transparent);
 	              c1.setBackgroundResource(android.R.color.transparent);
 			

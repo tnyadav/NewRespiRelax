@@ -1,10 +1,13 @@
-package com.example.respirelax;
+package com.tn.respirelax;
 
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.example.respirelax.ScalingUtilities.ScalingLogic;
+import com.tn.respirelax.R;
+import com.tn.respirelax.util.ScalingUtilities;
+import com.tn.respirelax.util.Util;
+import com.tn.respirelax.util.ScalingUtilities.ScalingLogic;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

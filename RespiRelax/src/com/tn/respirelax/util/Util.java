@@ -1,4 +1,4 @@
-package com.example.respirelax;
+package com.tn.respirelax.util;
 
 import android.app.Activity;
 import android.content.Context;

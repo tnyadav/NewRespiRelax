@@ -6,7 +6,32 @@
     android:background="@drawable/bg"
     android:orientation="horizontal"
     tools:context=".MainActivity" >
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/header_footer_lft_right_margin"
+        android:layout_marginRight="@dimen/header_footer_lft_right_margin"
+        android:layout_marginTop="@dimen/header_footer_margin" >
 
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/translated" />
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/l1"
         android:layout_width="wrap_content"
@@ -40,34 +65,8 @@
             android:layout_gravity="right"
             android:textColor="@android:color/white" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:visibility="invisible"
-            android:src="@drawable/temp" />
+
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/translated" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/logo" />
 
     <LinearLayout
         android:id="@+id/tim"
@@ -87,24 +86,23 @@
             android:text="00:00"
             android:textColor="@android:color/white" />
 
-        <com.example.respirelax.CalibriTextView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_gravity="center"
+            android:textSize="@dimen/normal_text_size"
             android:gravity="center"
-            android:text="TEMP RESET" />
+            android:text="@string/remaining_time" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" >
+        android:layout_marginBottom="@dimen/header_footer_margin"
+        android:layout_marginLeft="@dimen/header_footer_lft_right_margin"
+        android:layout_marginRight="@dimen/header_footer_lft_right_margin" >
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -119,18 +117,18 @@
                 android:layout_gravity="center"
                 android:background="@drawable/guide" />
 
-            <com.example.respirelax.CalibriTextView
+            <TextView
                 android:id="@+id/calibriTextView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                   android:gravity="center"
                 android:layout_gravity="center"
-                android:text="Guide" />
+                android:textSize="@dimen/normal_text_size"
+                android:text="@string/guide" />
 
         </LinearLayout>
 
         <View
-            android:id="@+id/view1"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent" />
@@ -148,13 +146,13 @@
                 android:layout_gravity="center"
                 android:background="@drawable/setting_button" />
 
-            <com.example.respirelax.CalibriTextView
-                android:id="@+id/calibriTextView2"
-                android:layout_width="wrap_content"
+            <TextView
+                  android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                   android:gravity="center"
+                  android:textSize="@dimen/normal_text_size"
                 android:layout_gravity="center"
-                android:text="Setting" />
+                android:text="@string/setting" />
         </LinearLayout>
     </LinearLayout>
 
