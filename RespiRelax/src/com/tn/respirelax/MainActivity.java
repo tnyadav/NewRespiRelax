@@ -51,8 +51,8 @@ public class MainActivity extends Activity {
 	LinearLayout im;
 	TextView tv;
 	
-    int duration=1,newDuration;
-    int frequency=10;
+    int duration=5,newDuration;
+    int frequency=6;
     boolean end=false;
     
     int counter,tempCounter;
@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 		 
 		
 		try {
-			duration=getIntent().getIntExtra(Util.TIME, 6);
+			duration=getIntent().getIntExtra(Util.TIME, 5);
 			frequency=getIntent().getIntExtra(Util.FREQUENCY, 6);
 		} catch (Exception e) {
 			

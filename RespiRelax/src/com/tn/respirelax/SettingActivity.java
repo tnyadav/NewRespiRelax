@@ -12,6 +12,7 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -185,7 +186,15 @@ public class SettingActivity extends Activity {
 	}
 
 	private int getFilterdProgress(int progress, int minValue) {
-		return (progress / 100) + minValue;
+		float f=((float)progress) / (float)100;
+		int value=(int) f;
+		String s=String.valueOf(f);
+		int s1=s.indexOf('.'); 
+		int i = Integer.parseInt(s.substring(s1 + 1));  
+		if (i>50) {
+			value=value+1;
+		}
+		return (int) (value + minValue);
 	}
 	OnClickListener boxOnClickListener=new OnClickListener() {
 		
