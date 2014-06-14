@@ -9,7 +9,7 @@
     <string name="dynamisant">DYNAMISANT</string>
     <string name="four">40%</string>
     <string name="six">60%</string>
-    <string name="remaining_time">Remaining time</string>
+    <string name="remaining_time">Remaining\ntime</string>
     <string name="validator">Validator</string>
     <string name="guide">Guide</string>
     <string name="setting">Settings</string>
