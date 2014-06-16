@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BreathRelex</string>
+    <string name="inspiration">Inspiration</string>
+    <string name="expiration">Expiration</string>
+    <string name="relaxtion">Déstressant</string>
+    <string name="equilibre">Apaisant</string>
+    <string name="dynamisant">Énergisant</string>
+    <string name="four">40%</string>
+    <string name="six">60%</string>
+    <string name="remaining_time">Temps\nrestant</string>
+    <string name="validator">Enregistrez vos préférences</string>
+    <string name="guide">Utilisez</string>
+    <string name="setting">Réglages</string>
+    <string name="breath">Nombre de respirations par minutes :</string>
+    <string name="duration">Durée de l\'exercice en minutes :</string> 
+    <string name="back">arrière</string>
+  
+</resources>

@@ -110,7 +110,7 @@
                 android:id="@+id/guide"
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:background="@drawable/guide"
                 android:gravity="center" />
 
@@ -139,7 +139,7 @@
                 android:id="@+id/btnSetting"
                 android:layout_width="@dimen/icon_width"
                 android:layout_height="@dimen/icon_height"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
                 android:background="@drawable/setting_button"
                 android:gravity="center" />
 

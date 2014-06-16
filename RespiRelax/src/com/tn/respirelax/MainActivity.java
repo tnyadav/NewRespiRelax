@@ -163,14 +163,17 @@ public class MainActivity extends Activity {
 							timer=new Timer();
 							timer.schedule(new MyTimerTask(), 000, 10);
 							mode = Mode.PAUSE;
+							b1.setBackgroundResource(R.drawable.pause);
 							break;
 						case PAUSE:
 							end = true;
 							mode = Mode.RESUME;
+							b1.setBackgroundResource(R.drawable.play);
 							break;
 						case RESUME:
 							end = false;
 							mode = Mode.PAUSE;
+							b1.setBackgroundResource(R.drawable.pause);
 							break;
 						default:
 							break;

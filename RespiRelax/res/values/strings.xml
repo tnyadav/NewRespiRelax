@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">RespiRelax</string>
-    <string name="inspiration">INSPIRATION</string>
-    <string name="expiration">EXPIRATION</string>
-    <string name="relaxtion">RELAXANT</string>
-    <string name="equilibre">EQUILIBRE</string>
-    <string name="dynamisant">DYNAMISANT</string>
+    <string name="app_name">BreathRelex</string>
+    <string name="inspiration">Inhale</string>
+    <string name="expiration">Exhale</string>
+    <string name="relaxtion">Relaxing</string>
+    <string name="equilibre">Balancing</string>
+    <string name="dynamisant">Stimulating</string>
     <string name="four">40%</string>
     <string name="six">60%</string>
     <string name="remaining_time">Remaining\ntime</string>
-    <string name="validator">Validator</string>
-    <string name="guide">Guide</string>
+    <string name="validator">Save your settings</string>
+    <string name="guide">Usage</string>
     <string name="setting">Settings</string>
-    <string name="breath">Number of breath per minute :</string>
-    <string name="duration">Duration in minutes :</string> 
+    <string name="breath">Number of breaths per minute :</string>
+    <string name="duration">Session duration in minutes :</string> 
     <string name="back">Back</string> 
   
 </resources>

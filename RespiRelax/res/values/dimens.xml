@@ -1,8 +1,8 @@
 <resources>
 
-    <dimen name="setting_small_text">9dp</dimen>
+    <dimen name="setting_small_text">10dp</dimen>
     <dimen name="setting_medium_text">15dp</dimen>
-    <dimen name="normal_text_size">20dp</dimen>
+    <dimen name="normal_text_size">18dp</dimen>
     
     <dimen name="setting_small_text_padding">3dp</dimen>
     <dimen name="setting_medium_text_padding">5dp</dimen>
