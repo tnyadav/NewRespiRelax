@@ -38,13 +38,13 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	
-/*	private static final String START = "Start";
-	private static final String PAUSE = "Pause";
-	private static final Mode RESUME = "Resume";*/
+
 	private static final int SECOND = 1000;
 	private static final int MINUTE = SECOND*60;
 	private static final String TAG = "MainActivity";
 	private Bundle savedInstanceState;
+	int i=1,j=1;
+	boolean upB,downB;
 	
 	Button b1,b2,guide;
 	FrameLayout l1;
@@ -271,18 +271,42 @@ public class MainActivity extends Activity {
 						tv.setText(getCounterText(counter / 100));
 						if (counter<duration) {
 						
-							if ((counter / tempMultiplayer) % 2 == 0) {
-								params.topMargin=imHeight;
+						
+							if (counter <= (600*i)&&!downB) {
+								upB=true;
+								float up = (float) ((float)imHeight/600.00);
+								params.topMargin= (imHeight)
+										- ((int) ((counter) * up));
 								im.setLayoutParams(params);
+								if (counter==600*i) {
+									i++;
+									upB=false;
+									downB=true;
+								}
+
+							} else if (counter > (600*(i-1)) && counter <= (1000*j)&&!upB) {
+								float down = (float) ((float)imHeight/400.00);
+								downB=true;
+								 params.topMargin = (int) ((counter-(600*(i-1))) * down);
+									im.setLayoutParams(params);
+									
+									if (counter==1000*j) {
+										j++;
+										downB=false;
+										upB=true;
+									}
+
+							}
+						
+							 
+							/*if ((counter / tempMultiplayer) % 2 == 0) {
 								params.topMargin= (imHeight)
 										- ((int) ((tempCounter) * multiplayer));
 								im.setLayoutParams(params);
 							} else {
-								params.topMargin = 0;
+						        params.topMargin = (int) (tempCounter * multiplayer);
 								im.setLayoutParams(params);
-                                params.topMargin = (int) (tempCounter * multiplayer);
-								im.setLayoutParams(params);
-							}
+							}*/
 						}
 						
                         
