@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import com.tn.respirelax.R;
+import com.tn.respirelax.util.SharedPreferencesUtil;
 import com.tn.respirelax.util.Util;
 
 public class SettingActivity extends Activity {
@@ -36,20 +37,34 @@ public class SettingActivity extends Activity {
 	
 	private SeekBar seekBarTime, seekBarFrequency;
 	private Button btnDone;
-	ImageView btnBack;
-	LinearLayout c1,c2,c3;
+	private ImageView btnBack;
+	private LinearLayout c1,c2,c3;
 	private Context context;
-
+	private int ratio=1;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.setting);
 		context = this;
 
+		int seekBarTimeProgress = SharedPreferencesUtil.getIntegerPreferences(context, Util.TIME);
+		if (seekBarTimeProgress==-1) {
+			seekBarTimeProgress=200;
+		}
+		
+		int seekBarFrequencyProgress=SharedPreferencesUtil.getIntegerPreferences(context, Util.FREQUENCY);
+		if (seekBarFrequencyProgress==-1) {
+			seekBarFrequencyProgress=200;
+		}
+		ratio=	SharedPreferencesUtil.getIntegerPreferences(context, Util.RATIO_FACTOR);
+		if (ratio==-1) {
+			ratio=1;
+		}
+		
 	//seekBarTime initialization
 		seekBarTime = (SeekBar) findViewById(R.id.seekBarTime);
 		seekBarTime.setMax(MAX_TIME);
-		seekBarTime.setProgress(200);
+		seekBarTime.setProgress(seekBarTimeProgress);
 		seekBarTimeProgressValue = getFilterdProgress(
 				seekBarTime.getProgress(), MIN_PROGRESS_TIME);
 		seekBarTime.setThumb(writeOnDrawable(R.drawable.ball, ""
@@ -59,7 +74,7 @@ public class SettingActivity extends Activity {
 	//seekBarFrequency initialization
 		seekBarFrequency = (SeekBar) findViewById(R.id.seekBarFrequency);
 		seekBarFrequency.setMax(MAX_FREQUENCY);
-		seekBarFrequency.setProgress(200);
+		seekBarFrequency.setProgress(seekBarFrequencyProgress);
 		seekBarFrequencyProgressValue = getFilterdProgress(
 				seekBarFrequency.getProgress(), MIN_PROGRESS_FREQUENCY);
 		seekBarFrequency.setThumb(writeOnDrawable(R.drawable.ball, ""
@@ -79,11 +94,19 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+
+				SharedPreferencesUtil.saveIntegerPreferences(context, Util.TIME, seekBarTime.getProgress());
+				SharedPreferencesUtil.saveIntegerPreferences(context, Util.FREQUENCY, seekBarFrequency.getProgress());
+				SharedPreferencesUtil.saveIntegerPreferences(context, Util.RATIO_FACTOR, ratio);
+				
+			
 				Intent intent = new Intent(getApplicationContext(),
 						MainActivity.class);
+				
 				intent.putExtra(Util.TIME, seekBarTimeProgressValue);
 				intent.putExtra(Util.FREQUENCY, seekBarFrequencyProgressValue);
-				startActivity(intent);
+				intent.putExtra(Util.RATIO_FACTOR, ratio);
+					startActivity(intent);
 				overridePendingTransition(R.anim.slide_out_right,
 						R.anim.slide_in_left);
 				Intent sendIntent = new Intent();
@@ -115,6 +138,22 @@ public class SettingActivity extends Activity {
 						R.anim.slide_in_left);
 			}
 		});
+		
+		switch (ratio) {
+		case 0:
+			selectRelexing();
+			break;
+		case 1:
+			selectBalancing();
+			break;
+		case 2:
+			selectStimulating();
+			break;
+		default:
+			break;
+		}
+		
+		
 	}
 
 	private OnSeekBarChangeListener seekBarChangeListenerForTime = new OnSeekBarChangeListener() {
@@ -203,21 +242,14 @@ public class SettingActivity extends Activity {
 			
 			switch (v.getId()) {
 			case R.id.c1:
-              c1.setBackgroundResource(android.R.color.white);
-              c2.setBackgroundResource(android.R.color.transparent);
-              c3.setBackgroundResource(android.R.color.transparent);
+				selectRelexing();
 				break;
 			case R.id.c2:
-				  c2.setBackgroundResource(android.R.color.white);
-	              c1.setBackgroundResource(android.R.color.transparent);
-	              c3.setBackgroundResource(android.R.color.transparent);
+				selectBalancing();
 			
 				break;
 			case R.id.c3:
-				  c3.setBackgroundResource(android.R.color.white);
-	              c2.setBackgroundResource(android.R.color.transparent);
-	              c1.setBackgroundResource(android.R.color.transparent);
-			
+				selectStimulating();
 				break;
 			default:
 				break;
@@ -225,4 +257,24 @@ public class SettingActivity extends Activity {
 			
 		}
 	};
+	private void selectRelexing() {
+		c1.setBackgroundResource(android.R.color.white);
+		c2.setBackgroundResource(android.R.color.transparent);
+		c3.setBackgroundResource(android.R.color.transparent);
+		ratio = 0;
+	}
+
+	private void selectBalancing() {
+		c2.setBackgroundResource(android.R.color.white);
+		c1.setBackgroundResource(android.R.color.transparent);
+		c3.setBackgroundResource(android.R.color.transparent);
+		ratio = 1;
+	}
+
+	private void selectStimulating() {
+		c3.setBackgroundResource(android.R.color.white);
+		c2.setBackgroundResource(android.R.color.transparent);
+		c1.setBackgroundResource(android.R.color.transparent);
+		ratio = 2;
+	}
 }

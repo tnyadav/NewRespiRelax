@@ -185,7 +185,7 @@
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
-                                android:text="@string/four"
+                                android:text="@string/six"
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/setting_medium_text"
                                  android:padding="@dimen/setting_medium_text_padding"
@@ -203,7 +203,7 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
                                 android:padding="@dimen/setting_medium_text_padding"
-                                android:text="@string/six"
+                                android:text="@string/four"
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/setting_medium_text" />
                         </LinearLayout>
@@ -242,7 +242,7 @@
                                 android:layout_gravity="center"
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
-                                android:text="@string/four"
+                                android:text="@string/five"
                                 android:textColor="@android:color/white"
                                  android:padding="@dimen/setting_medium_text_padding"
                                 android:textSize="@dimen/setting_medium_text" />
@@ -259,7 +259,7 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center"
                                 android:padding="@dimen/setting_medium_text_padding"
-                                android:text="@string/six"
+                                android:text="@string/five"
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/setting_medium_text" />
                         </LinearLayout>

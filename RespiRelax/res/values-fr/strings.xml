@@ -8,6 +8,7 @@
     <string name="equilibre">Apaisant</string>
     <string name="dynamisant">Énergisant</string>
     <string name="four">40%</string>
+    <string name="five">50%</string>
     <string name="six">60%</string>
     <string name="remaining_time">Temps\nrestant</string>
     <string name="validator">Enregistrez vos préférences</string>
