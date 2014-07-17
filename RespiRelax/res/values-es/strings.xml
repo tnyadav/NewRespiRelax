@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BreathRelex</string>
+    <string name="app_name">Respirelax</string>
     <string name="inspiration">inspiración</string>
     <string name="expiration">expiración</string>
     <string name="relaxtion">Relajante</string>
@@ -12,10 +12,10 @@
     <string name="six">60%</string>
     <string name="remaining_time">Tiempo\nrestante</string>
     <string name="validator">Guardar la configuración</string>
-    <string name="guide">Uso</string>
+    <string name="guide">Utilizar</string>
     <string name="setting">Ajustes</string>
     <string name="breath">Número par de respiraciones por minuto :</string>
     <string name="duration">Duración de la sesión en minutos :</string> 
-    <string name="back">espalda</string> 
+    <string name="back">Retorno</string> 
      <string name="translated">traducido</string> 
 </resources>

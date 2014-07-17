@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BreathRelax</string>
+    <string name="app_name">Respidetente</string>
     <string name="inspiration">Inspiration</string>
     <string name="expiration">Expiration</string>
     <string name="relaxtion">Déstressant</string>
@@ -11,11 +11,11 @@
     <string name="six">60%</string>
     <string name="remaining_time">Temps\nrestant</string>
     <string name="validator">Enregistrez vos préférences</string>
-    <string name="guide">Utilisez</string>
+    <string name="guide">Utilisation</string>
     <string name="setting">Réglages</string>
     <string name="breath">Nombre de respirations par minutes :</string>
     <string name="duration">Durée de l\'exercice en minutes :</string> 
-    <string name="back">arrière</string>
+    <string name="back">Retour</string>
   <string name="five">50%</string>
    <string name="translated">traduit</string> 
 </resources>
