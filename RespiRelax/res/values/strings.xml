@@ -16,6 +16,7 @@
     <string name="setting">Settings</string>
     <string name="breath">Number of breaths per minute :</string>
     <string name="duration">Session duration in minutes :</string> 
-    <string name="back">Back</string> 
-  
+    <string name="back">Back</string>
+    <string name="translated">Translated</string> 
+    
 </resources>

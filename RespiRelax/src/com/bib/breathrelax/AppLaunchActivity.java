@@ -1,5 +1,5 @@
 
-package com.tn.respirelax;
+package com.bib.breathrelax;
 
 
 import android.app.Activity;
@@ -10,7 +10,8 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
-import com.tn.respirelax.R;
+
+import com.bib.breathrelax.R;
 
 public class AppLaunchActivity extends Activity {
  

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/back_button_left_margin" >
 
-        <com.tn.respirelax.util.CalibriTextView
+        <com.bib.breaterelax.util.CalibriTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"

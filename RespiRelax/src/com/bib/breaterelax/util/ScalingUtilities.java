@@ -25,7 +25,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.tn.respirelax.util;
+package com.bib.breaterelax.util;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

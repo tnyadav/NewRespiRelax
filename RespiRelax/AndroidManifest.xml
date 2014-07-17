@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tn.respirelax"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.bib.breathrelax"
+     >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -14,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" >
         <activity
-            android:name="com.tn.respirelax.AppLaunchActivity"
+            android:name="com.bib.breathrelax.AppLaunchActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tn.respirelax.SettingActivity"></activity>
-        <activity android:name="com.tn.respirelax.GuideActivity"></activity>
-         <activity android:name="com.tn.respirelax.MainActivity"></activity>
+        <activity android:name="com.bib.breathrelax.SettingActivity"></activity>
+        <activity android:name="com.bib.breathrelax.GuideActivity"></activity>
+         <activity android:name="com.bib.breathrelax.MainActivity"></activity>
     </application>
 
 </manifest>

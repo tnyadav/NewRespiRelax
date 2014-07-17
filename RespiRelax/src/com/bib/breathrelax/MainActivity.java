@@ -1,4 +1,4 @@
-package com.tn.respirelax;
+package com.bib.breathrelax;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,9 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.tn.respirelax.util.ScalingUtilities;
-import com.tn.respirelax.util.ScalingUtilities.ScalingLogic;
-import com.tn.respirelax.util.Util;
+import com.bib.breathrelax.R;
+import com.bib.breaterelax.util.ScalingUtilities;
+import com.bib.breaterelax.util.ScalingUtilities.ScalingLogic;
+import com.bib.breaterelax.util.Util;
 
 public class MainActivity extends Activity {
 

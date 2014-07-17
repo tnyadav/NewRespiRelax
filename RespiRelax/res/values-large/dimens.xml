@@ -15,7 +15,7 @@
     <dimen name="icon_height">75dp</dimen>
     <dimen name="icon_width">75dp</dimen>
     <dimen name="translated_icon_height">150dp</dimen>
-    <dimen name="translated_icon_width">150dp</dimen>
+    <dimen name="translated_icon_width">180dp</dimen>
     
     <dimen name="box_internal_padding">9dp</dimen>
     <dimen name="box_parrent_margin_left">6dp</dimen>

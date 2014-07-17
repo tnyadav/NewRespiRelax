@@ -22,11 +22,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <ImageView
+        <TextView
             android:id="@+id/btnBack"
-            android:layout_width="@dimen/translated_icon_height"
-            android:layout_height="@dimen/translated_icon_width"
-            android:src="@drawable/translated" />
+           android:layout_width="@dimen/translated_icon_width"
+            android:layout_height="@dimen/translated_icon_height"
+            android:text="@string/translated"
+            android:textSize="20dip"
+            android:textStyle="bold"
+            android:paddingTop="14dip"
+            android:textColor="@color/translated_text_color"
+            android:gravity="center_vertical|top|center"/>
     </LinearLayout>
 
     <LinearLayout
@@ -40,7 +45,7 @@
             android:layout_gravity="center_vertical"
             android:orientation="vertical" >
 
-            <com.tn.respirelax.util.CalibriTextView
+            <com.bib.breaterelax.util.CalibriTextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +65,7 @@
                 android:paddingRight="@dimen/seekbar_side_margin"
                 android:progress="1" />
 
-            <com.tn.respirelax.util.CalibriTextView
+            <com.bib.breaterelax.util.CalibriTextView
                 android:id="@+id/tvFrequency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,16 +109,16 @@
                         android:background="@android:color/transparent"
                         android:orientation="vertical" >
 
-                        <com.tn.respirelax.util.CalibriTextView
-                            android:id="@+id/com.tn.respirelax.util.CalibriTextView3"
+                        <com.bib.breaterelax.util.CalibriTextView
+                            android:id="@+id/com.bib.breaterelax.util.CalibriTextView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
                             android:padding="@dimen/setting_medium_text_padding"
                             android:textSize="@dimen/setting_medium_text" />
 
-                        <com.tn.respirelax.util.CalibriTextView
-                            android:id="@+id/com.tn.respirelax.util.CalibriTextView1"
+                        <com.bib.breaterelax.util.CalibriTextView
+                            android:id="@+id/com.bib.breaterelax.util.CalibriTextView1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -130,7 +135,7 @@
                             android:layout_height="@dimen/view_height"
                             android:background="@android:color/white" />
 
-                        <com.tn.respirelax.util.CalibriTextView
+                        <com.bib.breaterelax.util.CalibriTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -167,7 +172,7 @@
                             android:background="@color/box_color_blue"
                             android:orientation="vertical" >
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -179,7 +184,7 @@
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/setting_small_text" />
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -196,7 +201,7 @@
                                  android:layout_height="@dimen/view_height"
                                 android:background="@android:color/white" />
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -225,7 +230,7 @@
                             android:background="@color/box_color_green"
                             android:orientation="vertical" >
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -236,7 +241,7 @@
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/setting_small_text" />
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -252,7 +257,7 @@
                                  android:layout_height="@dimen/view_height"
                                 android:background="@android:color/white" />
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -281,7 +286,7 @@
                             android:background="@color/box_color_red"
                             android:orientation="vertical" >
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -292,7 +297,7 @@
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/setting_small_text" />
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -308,7 +313,7 @@
                                  android:layout_height="@dimen/view_height"
                                 android:background="@android:color/white" />
 
-                            <com.tn.respirelax.util.CalibriTextView
+                            <com.bib.breaterelax.util.CalibriTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -345,7 +350,7 @@
                 android:background="@drawable/guide"
                 android:gravity="center" />
 
-            <com.tn.respirelax.util.CalibriTextView
+            <com.bib.breaterelax.util.CalibriTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -10,7 +10,7 @@
     <color name="box_color_green">#099627</color>
     <color name="box_color_red">#F7422A</color>
     <color name="text_color">#1411DB</color>
-    
+    <color name="translated_text_color">#0000FF</color>
     
     
 </resources>

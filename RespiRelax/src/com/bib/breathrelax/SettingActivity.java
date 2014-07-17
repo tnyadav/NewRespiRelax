@@ -1,4 +1,4 @@
-package com.tn.respirelax;
+package com.bib.breathrelax;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,9 +19,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import com.tn.respirelax.R;
-import com.tn.respirelax.util.SharedPreferencesUtil;
-import com.tn.respirelax.util.Util;
+import android.widget.TextView;
+
+import com.bib.breaterelax.util.SharedPreferencesUtil;
+import com.bib.breaterelax.util.Util;
 
 public class SettingActivity extends Activity {
 
@@ -37,7 +37,7 @@ public class SettingActivity extends Activity {
 	
 	private SeekBar seekBarTime, seekBarFrequency;
 	private Button btnDone;
-	private ImageView btnBack;
+	private TextView btnBack;
 	private LinearLayout c1,c2,c3;
 	private Context context;
 	private int ratio=1;
@@ -128,7 +128,7 @@ public class SettingActivity extends Activity {
 			//	finish();
 			}
 		});
-		btnBack = (ImageView) findViewById(R.id.btnBack);
+		btnBack = (TextView) findViewById(R.id.btnBack);
 		btnBack.setOnClickListener(new OnClickListener() {
 
 			@Override

@@ -1,4 +1,4 @@
-package com.tn.respirelax.util;
+package com.bib.breaterelax.util;
 
 import android.app.Activity;
 import android.content.Context;

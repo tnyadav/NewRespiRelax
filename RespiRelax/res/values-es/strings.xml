@@ -17,5 +17,5 @@
     <string name="breath">Número par de respiraciones por minuto :</string>
     <string name="duration">Duración de la sesión en minutos :</string> 
     <string name="back">espalda</string> 
-  
+     <string name="translated">traducido</string> 
 </resources>
